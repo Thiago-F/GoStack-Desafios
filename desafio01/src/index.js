@@ -3,6 +3,25 @@ const app = express();
 app.use(express.json());
 
 const projects = [];
+let requestCount = 0;
+
+const checkIsValid = (req , res , next) => {
+  const { id } = req.params;
+
+  projects.map(proj => {
+    if(proj.id == id){
+      return next();
+    }
+  })
+
+  return res.status(400).json({error:'Project is not valid'})
+}
+
+app.use((req , res, next) => {
+  console.log(`Total de ${++requestCount} requisiç${(requestCount > 1)?'ões':'ão'}`)
+
+  return next();
+})
 
 //list
 app.get("/projects", (req, res) => {
@@ -18,7 +37,7 @@ app.post("/projects", (req, res) => {
   return res.json(projects);
 });
 
-app.put("/projects/:id", (req, res) => {
+app.put("/projects/:id", checkIsValid , (req, res) => {
   const project = projects.filter(proj => proj.id == req.params.id);
   console.log(project);
   const { title } = req.body;
@@ -27,12 +46,25 @@ app.put("/projects/:id", (req, res) => {
   return res.json(project);
 });
 
-let index;
-app.delete("/projects/:id", (req, res) => {
-  const project = projects.filter((proj, index) => proj.id == req.params.id);
+app.delete("/projects/:id", checkIsValid, (req, res) => {
+  const project = projects.filter((proj, index) => (proj.id == req.params.id));
+  let index = projects.indexOf(project[0]);
 
-  projects.slice(index, 1);
-  return res.json(project);
+  projects.splice(index , 1);
+  
+  return res.json(projects);
+});
+
+app.post("/projects/:id", checkIsValid, (req, res) => {
+  const {id} = req.params;
+  
+  projects.map(proj => {
+    if(proj.id == id){
+      proj.tasks = req.body.tasks
+    }
+  })
+  
+  return res.json(projects);
 });
 
 app.listen(3000);
