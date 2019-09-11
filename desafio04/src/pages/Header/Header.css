@@ -1,0 +1,17 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #4A90E2;
+    height: 80px;
+    align-items: center;
+    padding: 0 40px;
+
+}
+.user-section{
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;   
+}
+
+.user-section .icon{
+    margin-left: 10px;
+}

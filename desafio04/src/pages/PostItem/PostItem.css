@@ -1,0 +1,38 @@
+.container {
+    max-width: 1020px;
+    margin: 0 auto;
+}
+
+.post{
+    width: 100%;
+    background-color: #FFFFFF;
+    padding: 30px;
+    margin-top: 30px;
+    border-radius: 10px;
+}
+
+.user-sec{
+    /* border: 1px solid black; */
+    display: flex;
+}
+.user-sec .profile {
+    border: 1px solid black;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.user-sec .infos{
+    margin-left: 5px;
+}
+.user-sec .infos .name{
+    /* font-weight: bolder; */
+}
+.user-sec .infos .date{
+    color: #999;
+    font-size: 14px;
+}
+
+.post-desc{
+    margin-top: 15px;
+}
